@@ -1,5 +1,6 @@
 package co.edu.uptc.api;
 
+import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -11,9 +12,11 @@ import reactor.core.publisher.Mono;
 public class Handler {
 //private  final UseCase useCase;
 //private  final UseCase2 useCase2;
+    private final GuardarProductoUseCase guardarProductoUseCase;
 
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
+    public Mono<ServerResponse> listenPostGuardarProducto(ServerRequest serverRequest) {
         // useCase.logic();
+
         return ServerResponse.ok().bodyValue("");
     }
 

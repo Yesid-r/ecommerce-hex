@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class JPARepositoryAdapter extends AdapterOperations<Producto/* change for domain model */, ProductoEntity/* change for adapter model */, String, JPARepository>
+public class JPARepositoryAdapter extends AdapterOperations<Producto, ProductoEntity, String, JPARepository>
 implements ProductoRepository
 {
 
@@ -24,6 +24,7 @@ implements ProductoRepository
 
     @Override
     public Mono<Producto> guardarProducto(Producto producto) {
-        return Mono.just(this.save(producto)).switchIfEmpty(Mono.error(new Exception("No se puede guardar el producto")));
+        return Mono.just(this.toEntity(this.repository.save(this.toData(producto)))).switchIfEmpty(Mono.error(new Exception("No se puede guardar el producto")));
+
     }
 }
