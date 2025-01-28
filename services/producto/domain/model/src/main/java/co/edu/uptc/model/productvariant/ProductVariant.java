@@ -1,17 +1,22 @@
-package co.edu.uptc.model.categoria;
+package co.edu.uptc.model.productvariant;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 //import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 //@NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Categoria {
-    private Integer id;
-    private String nombre;
-    private Integer parentId;
+public class ProductVariant {
+
+    private String sku;
+    private String size;
+    private int quantity;
+    private BigDecimal priceOffset;
+
 }
