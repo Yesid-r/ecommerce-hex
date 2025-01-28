@@ -1,14 +1,19 @@
-##Spring Configuration
 server:
   port: 8080
 spring:
   application:
-    name: productos
+    name: "productos"
   devtools:
     add-properties: false
-  h2:
-    console:
-      enabled: true
-      path: /h2
   profiles:
-    include:
+    include: null
+  datasource:
+    url: jdbc:postgresql://localhost:5432/producto_db
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
