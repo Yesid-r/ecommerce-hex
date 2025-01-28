@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: "productos"
@@ -8,12 +9,13 @@ spring:
   profiles:
     include: null
   datasource:
-    url: jdbc:postgresql://localhost:5432/producto_db
+    url: "jdbc:postgresql://localhost:5432/productos_db"
     username: root
     password: root
-    driver-class-name: org.postgresql.Driver
-    jpa:
-      hibernate:
-        ddl-auto: validate
-      database: postgresql
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    driverClassName: "org.postgresql.Driver"
+  jpa:
+    databasePlatform: "org.hibernate.dialect.PostgreSQLDialect"
+    hibernate:
+      ddl-auto: update
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8083, http://localhost:8080"
