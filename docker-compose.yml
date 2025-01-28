@@ -1,0 +1,22 @@
+services:
+  postgresql:
+    container_name: ecommerce_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - microservicios-ecommerce-net
+    restart: unless-stopped
+networks:
+  microservicios-ecommerce-net:
+    driver: bridge
+
+volumes:
+  postgres:
+
