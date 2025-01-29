@@ -16,6 +16,6 @@ spring:
   jpa:
     databasePlatform: "org.hibernate.dialect.PostgreSQLDialect"
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8083, http://localhost:8080"

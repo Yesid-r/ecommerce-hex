@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 @Data
 @Entity
-@Table(name = "producti")
+@Table(name = "producto")
 public class ProductoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

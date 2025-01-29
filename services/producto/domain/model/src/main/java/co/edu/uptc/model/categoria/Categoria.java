@@ -1,17 +1,14 @@
 package co.edu.uptc.model.categoria;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-//import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-//@NoArgsConstructor
-@AllArgsConstructor
+
+
+@Data
 @Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Categoria {
     private Integer id;
     private String nombre;
-    private Integer parentId;
+    private Categoria parent;
 }
