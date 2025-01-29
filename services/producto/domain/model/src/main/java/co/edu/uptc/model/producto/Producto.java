@@ -1,19 +1,15 @@
 package co.edu.uptc.model.producto;
 import co.edu.uptc.model.productvariant.ProductVariant;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 //import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-@Getter
-@Setter
-//@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Producto {
 
     private Integer id;
