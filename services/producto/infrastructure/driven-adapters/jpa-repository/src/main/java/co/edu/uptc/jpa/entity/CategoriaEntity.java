@@ -1,10 +1,14 @@
 package co.edu.uptc.jpa.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "categorias")
@@ -16,10 +20,9 @@ public class CategoriaEntity {
 
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private CategoriaEntity parent;
+    @OneToMany
+    private List<ProductoEntity> productos;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoriaEntity> children;
+
+
 }

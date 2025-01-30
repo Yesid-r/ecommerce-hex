@@ -5,4 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface CategoriaRepository {
     Mono<Categoria> guardarCategoria(Categoria categoria);
+    Mono<Categoria> buscarCategoriaPorId(Integer id);
 }

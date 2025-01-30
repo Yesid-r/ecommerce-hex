@@ -1,6 +1,9 @@
 package co.edu.uptc.api;
 
 import co.edu.uptc.api.DTO.CategoriaDTO;
+import co.edu.uptc.api.DTO.CategoriaMapper;
+import co.edu.uptc.api.DTO.ProductRequest;
+import co.edu.uptc.api.DTO.ProductoMapper;
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
 import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
@@ -17,12 +20,17 @@ public class Handler {
 
     private final GuardarProductoUseCase guardarProductoUseCase;
     private final GuardarCategoriaUseCase guardarCategoriaUseCase;
+    private final CategoriaMapper categoriaMapper;
+    private final ProductoMapper productoMapper;
 
     public Mono<ServerResponse> listenPostGuardarProducto(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(Producto.class)
-                .flatMap(producto -> guardarProductoUseCase.action(producto))
-                .flatMap(producto -> ServerResponse.ok().bodyValue(producto))
+
+
+        System.out.println("serverRequest = " + serverRequest);
+        return serverRequest.bodyToMono(ProductRequest.class)
+                .flatMap(producto -> guardarProductoUseCase.action(productoMapper.toProducto(producto), producto.categoriaId() ))
+                .flatMap(producto1 -> ServerResponse.ok().bodyValue(producto1))
                 .onErrorResume(e-> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
 
@@ -31,12 +39,14 @@ public class Handler {
     public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
         // useCase2.logic();
         return ServerResponse.ok().bodyValue("");
+
     }
 
     public Mono<ServerResponse> listenPOSTGuardarCategoria(ServerRequest serverRequest) {
-        return serverRequest.bodyToMono(Categoria.class)
-                .flatMap(categoria -> guardarCategoriaUseCase.action(categoria))
-                .flatMap(categoria -> ServerResponse.ok().bodyValue(categoria))
-                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+
+        return serverRequest.bodyToMono(CategoriaDTO.class)
+                .flatMap(categoria -> guardarCategoriaUseCase.action(categoriaMapper.toCategoria(categoria))
+                .flatMap(categoria1 -> ServerResponse.ok().bodyValue(categoriaMapper.toCategoriaDTO(categoria1)))
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage())));
     }
 }

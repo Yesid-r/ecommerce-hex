@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
+
 public class JPARepositoryAdapter extends AdapterOperations<Producto, ProductoEntity, String, JPARepository>
 implements ProductoRepository
 {
+
 
     public JPARepositoryAdapter(JPARepository repository, ObjectMapper mapper) {
         /**
@@ -20,11 +22,14 @@ implements ProductoRepository
          *  Or using mapper.map with the class of the object model
          */
         super(repository, mapper, d -> mapper.map(d, Producto.class/* change for domain model */));
+
     }
 
     @Override
     public Mono<Producto> guardarProducto(Producto producto) {
+        System.out.println("producto = " + producto);
         return Mono.just(this.toEntity(this.repository.save(this.toData(producto)))).switchIfEmpty(Mono.error(new Exception("No se puede guardar el producto")));
+
 
     }
 }

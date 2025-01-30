@@ -1,6 +1,9 @@
 package co.edu.uptc.model.categoria;
+import co.edu.uptc.model.producto.Producto;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -8,7 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Categoria {
+
     private Integer id;
     private String nombre;
-    private Categoria parent;
+    //private List<Producto> productos;
+
 }

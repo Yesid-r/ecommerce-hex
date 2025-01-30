@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class JPARepositoryAdapterCategoria extends AdapterOperations<Categoria, CategoriaEntity, String, JPARepositoryCategoria>
+public class JPARepositoryAdapterCategoria extends AdapterOperations<Categoria, CategoriaEntity, Integer, JPARepositoryCategoria>
 implements CategoriaRepository
 {
 
@@ -30,5 +30,11 @@ implements CategoriaRepository
 
         return Mono.just(this.toEntity(this.repository.save(this.toData(categoria)))).switchIfEmpty(Mono.error(new Exception("No se puede guardar la categoria")));
 
+    }
+
+    @Override
+    public Mono<Categoria> buscarCategoriaPorId(Integer id) {
+        System.out.println("id buscar por categoria =  " + id);
+        return Mono.just(this.toEntity(this.repository.findById(id).get())).switchIfEmpty(Mono.error( new Exception("No se pudo encontrar la categoria")));
     }
 }

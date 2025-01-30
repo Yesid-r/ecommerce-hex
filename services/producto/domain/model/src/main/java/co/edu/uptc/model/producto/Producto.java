@@ -1,10 +1,12 @@
 package co.edu.uptc.model.producto;
+import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.productvariant.ProductVariant;
 import lombok.*;
 //import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
@@ -16,10 +18,10 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private String color;
-    private Integer categoryId;
+    private Categoria categoria;
     private BigDecimal precio;
     private boolean isActive;
-    private ArrayList<ProductVariant> variants;
+    private Set<ProductVariant> variants;
 
     public void addVariant(String sku, String size, int quantity, BigDecimal priceOffset) {
         variants.add(new ProductVariant(sku, size, quantity, priceOffset));
