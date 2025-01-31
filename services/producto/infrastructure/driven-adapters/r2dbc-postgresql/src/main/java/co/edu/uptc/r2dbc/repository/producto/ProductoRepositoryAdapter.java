@@ -35,8 +35,8 @@ implements ProductoRepository
 
     @Override
     public Mono<Producto> guardarProducto(Producto producto) {
-        return repository.save(productoRepMapper.toModel(producto))
-                .flatMap(entity -> productoRepMapper.toEntity(Mono.just(entity), producto.getCategoria()));
+        return repository.save(productoRepMapper.toEntity(producto))
+                .flatMap(entity -> productoRepMapper.toModel(Mono.just(entity), producto.getCategoria()));
     }
 
     @Override

@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class ProductoRepMapper {
 
-    public Mono<Producto> toEntity(Mono<ProductoEntity> entity, Categoria categoria) {
+    public Mono<Producto> toModel(Mono<ProductoEntity> entity, Categoria categoria) {
         return entity.map(e -> Producto.builder()
                 .id(e.getId())
                 .nombre(e.getNombre())
@@ -19,7 +19,7 @@ public class ProductoRepMapper {
                 .isActive(e.getIsActive())
                 .build());
     }
-    public ProductoEntity toModel(Producto producto) {
+    public ProductoEntity toEntity(Producto producto) {
         return ProductoEntity.builder()
                 .nombre(producto.getNombre())
                 .descripcion(producto.getDescripcion())
