@@ -46,6 +46,6 @@ implements ProductoRepository
 
     @Override
     public Flux<Producto> buscarProductos() {
-        return this.repository.findAll().map(this::toEntity);
+        return  repository.findAll().flatMap(entity -> productoRepMapper.toModel(Mono.just(entity), null));
     }
 }

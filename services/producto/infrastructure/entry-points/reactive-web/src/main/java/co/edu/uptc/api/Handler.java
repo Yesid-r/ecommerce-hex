@@ -7,6 +7,7 @@ import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
 import co.edu.uptc.usecase.guardarvarianteproducto.GuardarVarianteProductoUseCase;
 import co.edu.uptc.usecase.listarproductos.ListarProductosUseCase;
+import co.edu.uptc.usecase.obtenerproducto.ObtenerProductoUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -24,15 +25,18 @@ public class Handler {
     private final ProductVarantMapper productVarantMapper;
     private final GuardarVarianteProductoUseCase guardarVarianteProductoUseCase;
     private final ListarProductosUseCase listarProductosUseCase;
+    private final ObtenerProductoUseCase obtenerProductoUseCase;
 
     public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
         return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
     }
+    public Mono<ServerResponse> listenGETObtenerProducto(ServerRequest serverRequest) {
+        Integer id = Integer.valueOf(serverRequest.pathVariable("id"));
+
+        return ServerResponse.ok().body(obtenerProductoUseCase.action(id), Producto.class).onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+    }
     public Mono<ServerResponse> listenPostGuardarProducto(ServerRequest serverRequest) {
 
-
-
-        System.out.println("serverRequest = " + serverRequest);
         return serverRequest.bodyToMono(ProductRequest.class)
                 .flatMap(producto -> guardarProductoUseCase.action(productoMapper.toProducto(producto), producto.categoriaId() ))
                 .flatMap(producto1 -> ServerResponse.ok().bodyValue(producto1))
