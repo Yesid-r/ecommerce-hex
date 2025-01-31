@@ -1,13 +1,12 @@
 package co.edu.uptc.api;
 
-import co.edu.uptc.api.DTO.CategoriaDTO;
-import co.edu.uptc.api.DTO.CategoriaMapper;
-import co.edu.uptc.api.DTO.ProductRequest;
-import co.edu.uptc.api.DTO.ProductoMapper;
+import co.edu.uptc.api.DTO.*;
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
 import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
+import co.edu.uptc.usecase.guardarvarianteproducto.GuardarVarianteProductoUseCase;
+import co.edu.uptc.usecase.listarproductos.ListarProductosUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -22,7 +21,13 @@ public class Handler {
     private final GuardarCategoriaUseCase guardarCategoriaUseCase;
     private final CategoriaMapper categoriaMapper;
     private final ProductoMapper productoMapper;
+    private final ProductVarantMapper productVarantMapper;
+    private final GuardarVarianteProductoUseCase guardarVarianteProductoUseCase;
+    private final ListarProductosUseCase listarProductosUseCase;
 
+    public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
+        return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
+    }
     public Mono<ServerResponse> listenPostGuardarProducto(ServerRequest serverRequest) {
 
 
@@ -34,6 +39,13 @@ public class Handler {
                 .onErrorResume(e-> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
 
+    }
+
+    public Mono<ServerResponse> listenPostGuardarVariante(ServerRequest serverRequest) {
+        return serverRequest.bodyToMono(ProductVariantRequest.class)
+                .flatMap(variante -> guardarVarianteProductoUseCase.action(productVarantMapper.toProductVariant(variante)))
+                .flatMap(producto1 -> ServerResponse.ok().bodyValue(producto1))
+                .onErrorResume(e-> ServerResponse.badRequest().bodyValue(e.getMessage()));
     }
 
     public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {

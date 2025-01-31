@@ -23,8 +23,8 @@ public class Producto {
     private boolean isActive;
     private Set<ProductVariant> variants;
 
-    public void addVariant(String sku, String size, int quantity, BigDecimal priceOffset) {
-        variants.add(new ProductVariant(sku, size, quantity, priceOffset));
+    public void addVariant(Integer id, String sku, String size, int quantity, BigDecimal priceOffset) {
+        variants.add(new ProductVariant(id,this.id,sku, size, quantity, priceOffset));
 
     }
 

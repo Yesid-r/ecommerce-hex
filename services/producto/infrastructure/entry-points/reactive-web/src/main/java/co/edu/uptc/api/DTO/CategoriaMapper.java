@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaMapper {
-    public Categoria toCategoria(CategoriaDTO categoriaDTO) {
 
+    public Categoria toCategoria(CategoriaDTO categoriaDTO) {
+        System.out.println("categoriaDTO = " + categoriaDTO);
         Categoria categoria = new Categoria();
         categoria.setId(categoriaDTO.id());
         categoria.setNombre(categoriaDTO.nombre());

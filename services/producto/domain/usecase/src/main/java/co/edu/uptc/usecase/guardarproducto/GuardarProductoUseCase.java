@@ -12,7 +12,7 @@ public class GuardarProductoUseCase {
     private final CategoriaRepository categoriaRepository;
 
     public Mono<Producto> action(Producto producto, Integer idCategoria) {
-        System.out.println("producto = " + producto);
+        System.out.println("producto in use case= " + producto);
         return categoriaRepository.buscarCategoriaPorId(idCategoria)
                 .switchIfEmpty(Mono.error(new Exception("La categoría no existe")))
                 .flatMap(categoria -> {

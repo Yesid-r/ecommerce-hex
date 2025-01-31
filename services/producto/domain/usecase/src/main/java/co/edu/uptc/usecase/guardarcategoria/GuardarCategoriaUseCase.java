@@ -10,6 +10,7 @@ public class GuardarCategoriaUseCase {
     private final CategoriaRepository categoriaRepository;
 
     public Mono<Categoria> action (Categoria categoria){
+        System.out.println("categoria = " + categoria);
         return categoriaRepository.guardarCategoria(categoria).switchIfEmpty(Mono.error(new RuntimeException("No se puede guardar Categoria")));
     }
 }
