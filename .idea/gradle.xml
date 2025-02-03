@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/services/producto/domain/model" />
             <option value="$PROJECT_DIR$/services/producto/domain/usecase" />
             <option value="$PROJECT_DIR$/services/producto/infrastructure/driven-adapters/jpa-repository" />
+            <option value="$PROJECT_DIR$/services/producto/infrastructure/driven-adapters/r2dbc-postgresql" />
             <option value="$PROJECT_DIR$/services/producto/infrastructure/entry-points/reactive-web" />
           </set>
         </option>
