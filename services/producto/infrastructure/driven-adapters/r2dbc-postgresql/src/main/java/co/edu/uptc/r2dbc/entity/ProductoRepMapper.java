@@ -2,6 +2,7 @@ package co.edu.uptc.r2dbc.entity;
 
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
+import co.edu.uptc.model.productvariant.ProductVariant;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -29,6 +30,8 @@ public class ProductoRepMapper {
                 .isActive(producto.isActive())
                 .build();
     }
+
+
 
 
 }

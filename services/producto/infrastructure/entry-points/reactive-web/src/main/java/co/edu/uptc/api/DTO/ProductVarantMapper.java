@@ -8,11 +8,11 @@ public class ProductVarantMapper {
     public ProductVariant toProductVariant(ProductVariantRequest request){
 
         return ProductVariant.builder()
-                .idProducto(request.productId())
+                .idProducto(request.id_product())
                 .sku(request.sku())
                 .size(request.size())
                 .quantity(request.quantity())
-                .priceOffset(request.priceOffset())
+                .priceOffset(request.price_offset())
                 .build();
 
     }
