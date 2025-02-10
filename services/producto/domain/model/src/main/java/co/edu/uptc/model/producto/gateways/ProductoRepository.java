@@ -11,4 +11,5 @@ public interface ProductoRepository {
     Mono<Producto> buscarPorId(Integer idProducto);
 
     Flux<Producto> buscarProductos();
+    Mono<Producto> actualizarProducto(Producto producto);
 }

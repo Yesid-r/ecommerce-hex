@@ -8,6 +8,7 @@ import co.edu.uptc.r2dbc.helper.ReactiveAdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -38,5 +39,11 @@ implements ProductVariantRepository
 //        return this.repository.save(productoVariantMapper.toEntity(productVariant))
 //                .map(productoVariantMapper::toDomain)
 //                .onErrorResume(Mono::error);
+    }
+
+    public Flux<ProductVariant> buscarPorIdProducto(Integer idProducto) {
+        return this.repository.findAllByIdProducto(idProducto)
+                .map(productoVariantMapper::toDomain)
+                .onErrorResume(Flux::error);
     }
 }

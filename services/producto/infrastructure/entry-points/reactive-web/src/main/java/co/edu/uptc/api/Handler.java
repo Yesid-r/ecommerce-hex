@@ -7,6 +7,7 @@ import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
 import co.edu.uptc.usecase.guardarvarianteproducto.GuardarVarianteProductoUseCase;
 import co.edu.uptc.usecase.listarproductos.ListarProductosUseCase;
+import co.edu.uptc.usecase.modificarproducto.ModificarProductoUseCase;
 import co.edu.uptc.usecase.obtenerproducto.ObtenerProductoUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class Handler {
     private final GuardarVarianteProductoUseCase guardarVarianteProductoUseCase;
     private final ListarProductosUseCase listarProductosUseCase;
     private final ObtenerProductoUseCase obtenerProductoUseCase;
+    private final ModificarProductoUseCase modificarProductoUseCase;
 
     public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
         return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
@@ -34,6 +36,13 @@ public class Handler {
         Integer id = Integer.valueOf(serverRequest.pathVariable("id"));
 
         return ServerResponse.ok().body(obtenerProductoUseCase.action(id), Producto.class).onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+    }
+    public Mono<ServerResponse> listenPOSTModificarProducto(ServerRequest serverRequest) {
+        Integer id = Integer.valueOf(serverRequest.pathVariable("id"));
+        return serverRequest.bodyToMono(Producto.class)
+                .flatMap(producto -> modificarProductoUseCase.modificarProducto(id, producto))
+                .flatMap(producto -> ServerResponse.ok().bodyValue(producto))
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
     }
     public Mono<ServerResponse> listenPostGuardarProducto(ServerRequest serverRequest) {
 

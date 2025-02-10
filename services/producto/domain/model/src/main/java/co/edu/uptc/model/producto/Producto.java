@@ -28,5 +28,7 @@ public class Producto {
 
     }
 
-
+    public boolean isActive() {
+        return isActive;
+    }
 }

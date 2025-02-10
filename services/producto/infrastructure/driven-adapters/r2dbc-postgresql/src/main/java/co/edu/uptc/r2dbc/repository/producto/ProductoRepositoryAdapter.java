@@ -3,10 +3,12 @@ package co.edu.uptc.r2dbc.repository.producto;
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
 import co.edu.uptc.model.producto.gateways.ProductoRepository;
+import co.edu.uptc.model.productvariant.ProductVariant;
 import co.edu.uptc.r2dbc.entity.ProductoEntity;
 import co.edu.uptc.r2dbc.entity.ProductoRepMapper;
 import co.edu.uptc.r2dbc.helper.ReactiveAdapterOperations;
 import co.edu.uptc.r2dbc.repository.categoria.MyReactiveRepositoryAdapter;
+import co.edu.uptc.r2dbc.repository.productoVariante.ProductoVarianteRepositoryAdapter;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,8 @@ implements ProductoRepository
     private final ProductoRepMapper productoRepMapper;
     @Autowired
     private MyReactiveRepositoryAdapter categoriaRepositoryAdapter;
+    @Autowired
+    private ProductoVarianteRepositoryAdapter productoVariantRepositoryAdapter;
 
     public ProductoRepositoryAdapter(ProductoRepositoryR2DBC repository, ObjectMapper mapper, ProductoRepMapper productoRepMapper) {
         /**
@@ -60,9 +64,29 @@ implements ProductoRepository
                 );
     }
 
+    @Override
+    public Mono<Producto> actualizarProducto(Producto producto) {
+        return repository.findById(producto.getId())
+                .flatMap(entity -> {
+                    entity.setNombre(producto.getNombre());
+                    entity.setDescripcion(producto.getDescripcion());
+                    entity.setColor(producto.getColor());
+                    entity.setPrecio(producto.getPrecio());
+                    entity.setIsActive(producto.isActive());
+                    return repository.save(entity);
+                })
+                .flatMap(entity -> buscarCategoriaPorId(entity.getIdCategoria())
+                        .flatMap(categoria -> productoRepMapper.toModel(Mono.just(entity), categoria))
+                );
+    }
+
 
     private Mono<Categoria> buscarCategoriaPorId(Integer idCategoria) {
         return categoriaRepositoryAdapter.findById(idCategoria)
                 .map(entity -> new Categoria(entity.getId(), entity.getNombre()));
+    }
+
+    private Flux<ProductVariant> buscarVariantesPorIdProducto(Integer idProducto) {
+        return productoVariantRepositoryAdapter.buscarPorIdProducto(idProducto);
     }
 }
