@@ -6,6 +6,7 @@ import co.edu.uptc.r2dbc.entity.CategoriaEntity;
 import co.edu.uptc.r2dbc.helper.ReactiveAdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -37,5 +38,10 @@ implements CategoriaRepository
     @Override
     public Mono<Categoria> buscarCategoriaPorId(Integer id) {
         return this.repository.findById(id).map(this::toEntity);
+    }
+
+    @Override
+    public Flux<Categoria> buscarTodasLasCategorias() {
+        return this.repository.findAll().map(this::toEntity);
     }
 }

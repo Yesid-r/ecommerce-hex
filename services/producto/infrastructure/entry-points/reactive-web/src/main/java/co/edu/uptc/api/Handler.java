@@ -6,6 +6,7 @@ import co.edu.uptc.model.producto.Producto;
 import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
 import co.edu.uptc.usecase.guardarvarianteproducto.GuardarVarianteProductoUseCase;
+import co.edu.uptc.usecase.listarcategorias.ListarCategoriasUseCase;
 import co.edu.uptc.usecase.listarproductos.ListarProductosUseCase;
 import co.edu.uptc.usecase.modificarproducto.ModificarProductoUseCase;
 import co.edu.uptc.usecase.obtenerproducto.ObtenerProductoUseCase;
@@ -28,6 +29,7 @@ public class Handler {
     private final ListarProductosUseCase listarProductosUseCase;
     private final ObtenerProductoUseCase obtenerProductoUseCase;
     private final ModificarProductoUseCase modificarProductoUseCase;
+    private final ListarCategoriasUseCase listarCategoriasUseCase;
 
     public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
         return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
@@ -65,6 +67,9 @@ public class Handler {
         // useCase2.logic();
         return ServerResponse.ok().bodyValue("");
 
+    }
+    public Mono listenGETListarCategorias(ServerRequest serverRequest) {
+        return ServerResponse.ok().body(listarCategoriasUseCase.action(), Categoria.class);
     }
 
     public Mono<ServerResponse> listenPOSTGuardarCategoria(ServerRequest serverRequest) {
