@@ -41,9 +41,12 @@ implements ProductVariantRepository
 //                .onErrorResume(Mono::error);
     }
 
-    public Flux<ProductVariant> buscarPorIdProducto(Integer idProducto) {
+    @Override
+    public Flux<ProductVariant> listarVariantesPorProducto(Integer idProducto) {
         return this.repository.findAllByIdProducto(idProducto)
                 .map(productoVariantMapper::toDomain)
                 .onErrorResume(Flux::error);
     }
+
+
 }

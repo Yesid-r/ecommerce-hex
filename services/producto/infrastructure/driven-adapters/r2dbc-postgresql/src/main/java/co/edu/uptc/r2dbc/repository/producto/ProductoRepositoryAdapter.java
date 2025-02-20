@@ -50,8 +50,10 @@ implements ProductoRepository
 
     @Override
     public Mono<Producto> buscarPorId(Integer idProducto) {
-        return this.repository.findById(idProducto).
-                flatMap(entity -> buscarCategoriaPorId(entity.getIdCategoria())
+
+
+        return repository.findById(idProducto)
+                .flatMap(entity -> buscarCategoriaPorId(entity.getIdCategoria())
                         .flatMap(categoria -> productoRepMapper.toModel(Mono.just(entity), categoria))
                 );
     }
@@ -94,7 +96,5 @@ implements ProductoRepository
                 .map(entity -> new Categoria(entity.getId(), entity.getNombre()));
     }
 
-    private Flux<ProductVariant> buscarVariantesPorIdProducto(Integer idProducto) {
-        return productoVariantRepositoryAdapter.buscarPorIdProducto(idProducto);
-    }
+
 }
