@@ -3,10 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ecommerce.iml" filepath="$PROJECT_DIR$/.idea/ecommerce.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/applications/app-service/productos.app-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/applications/app-service/productos.app-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/model/productos.model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/model/productos.model.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/productos.reactive-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/productos.reactive-web.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/usecase/productos.usecase.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/usecase/productos.usecase.main.iml" />
     </modules>
   </component>
 </project>

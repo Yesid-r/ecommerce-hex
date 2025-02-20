@@ -12,20 +12,19 @@
         <module name="productos.app-service.test" />
         <module name="productos.r2dbc-postgresql.test" />
         <module name="productos.usecase.test" />
+        <module name="productos.jpa-repository.test" />
         <module name="productos.app-service.main" />
         <module name="productos.model.test" />
         <module name="productos.r2dbc-postgresql.main" />
         <module name="productos.model.main" />
         <module name="productos.reactive-web.main" />
+        <module name="productos.jpa-repository.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="driven-adapters.productos.R2DBCdriverAdapter" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.main" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.test" target="17" />
-      <module name="productos.jpa-repository" target="17" />
-      <module name="productos.jpa-repository.main" target="17" />
-      <module name="productos.jpa-repository.test" target="17" />
       <module name="productos.R2DBCdriverAdapter" target="17" />
       <module name="productos.R2DBCdriverAdapter.main" target="17" />
       <module name="productos.R2DBCdriverAdapter.test" target="17" />
