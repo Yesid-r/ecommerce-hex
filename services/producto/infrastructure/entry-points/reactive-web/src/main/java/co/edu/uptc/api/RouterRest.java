@@ -18,7 +18,8 @@ public class RouterRest {
                 .andRoute(POST("/api/v1/product-variant/"), handler::listenPostGuardarVariante)
                 .andRoute(GET("/api/v1/producto"), handler::listenGETListarProductos)
                 .andRoute(GET("/api/v1/producto/{id}"), handler::listenGETObtenerProducto)
-                .andRoute(PUT("/api/v1/producto/{id}"), handler::listenPOSTModificarProducto);
+                .andRoute(PUT("/api/v1/producto/{id}"), handler::listenPOSTModificarProducto)
+                .andRoute(DELETE("/api/v1/producto/{id}"), handler::listenDeleteEliminarProducto);
 
 
     }

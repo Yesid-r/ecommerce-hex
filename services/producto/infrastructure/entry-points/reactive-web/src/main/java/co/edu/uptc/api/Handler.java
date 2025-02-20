@@ -3,6 +3,7 @@ package co.edu.uptc.api;
 import co.edu.uptc.api.DTO.*;
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
+import co.edu.uptc.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
 import co.edu.uptc.usecase.guardarvarianteproducto.GuardarVarianteProductoUseCase;
@@ -30,9 +31,17 @@ public class Handler {
     private final ObtenerProductoUseCase obtenerProductoUseCase;
     private final ModificarProductoUseCase modificarProductoUseCase;
     private final ListarCategoriasUseCase listarCategoriasUseCase;
+    private final EliminarProductoUseCase eliminarProductoUseCase;
 
     public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
         return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
+    }
+    public Mono<ServerResponse> listenDeleteEliminarProducto(ServerRequest serverRequest) {
+        Integer id = Integer.valueOf(serverRequest.pathVariable("id"));
+        return eliminarProductoUseCase.eliminarProducto(id)
+                .then(ServerResponse.noContent().build())
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+
     }
     public Mono<ServerResponse> listenGETObtenerProducto(ServerRequest serverRequest) {
         Integer id = Integer.valueOf(serverRequest.pathVariable("id"));

@@ -80,6 +80,14 @@ implements ProductoRepository
                 );
     }
 
+    @Override
+    public Mono<Void> eliminarProducto(Integer idProducto) {
+
+        return repository.findById(idProducto)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("El producto con ID " + idProducto + " no existe.")))
+                .flatMap(producto -> repository.deleteById(idProducto));
+    }
+
 
     private Mono<Categoria> buscarCategoriaPorId(Integer idCategoria) {
         return categoriaRepositoryAdapter.findById(idCategoria)
