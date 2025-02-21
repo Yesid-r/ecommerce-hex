@@ -1,5 +1,6 @@
 package co.edu.uptc.usecase.guardarproducto;
 
+import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.categoria.gateways.CategoriaRepository;
 import co.edu.uptc.model.producto.Producto;
 import co.edu.uptc.model.producto.gateways.ProductoRepository;
@@ -12,7 +13,9 @@ public class GuardarProductoUseCase {
     private final CategoriaRepository categoriaRepository;
 
     public Mono<Producto> action(Producto producto, Integer idCategoria) {
-        System.out.println("producto in use case= " + producto);
+
+
+
         return categoriaRepository.buscarCategoriaPorId(idCategoria)
                 .switchIfEmpty(Mono.error(new Exception("La categoría no existe")))
                 .flatMap(categoria -> {
