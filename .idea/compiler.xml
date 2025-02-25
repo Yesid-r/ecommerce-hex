@@ -7,33 +7,19 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
         </processorPath>
-        <module name="productos.reactive-web.test" />
-        <module name="productos.usecase.main" />
-        <module name="productos.app-service.test" />
-        <module name="productos.r2dbc-postgresql.test" />
-        <module name="productos.usecase.test" />
-        <module name="productos.jpa-repository.test" />
-        <module name="productos.app-service.main" />
-        <module name="productos.model.test" />
-        <module name="productos.r2dbc-postgresql.main" />
-        <module name="productos.model.main" />
-        <module name="productos.reactive-web.main" />
-        <module name="productos.jpa-repository.main" />
+        <module name="customer.usecase.test" />
+        <module name="customer.reactive-web.test" />
+        <module name="customer.model.test" />
+        <module name="customer.usecase.main" />
+        <module name="customer.app-service.main" />
+        <module name="customer.reactive-web.main" />
+        <module name="customer.mongo-repository.main" />
+        <module name="customer.app-service.test" />
+        <module name="customer.mongo-repository.test" />
+        <module name="customer.model.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="customer" target="17" />
-      <module name="customer.app-service" target="17" />
-      <module name="customer.app-service.main" target="17" />
-      <module name="customer.app-service.test" target="17" />
-      <module name="customer.main" target="17" />
-      <module name="customer.model" target="17" />
-      <module name="customer.model.main" target="17" />
-      <module name="customer.model.test" target="17" />
-      <module name="customer.test" target="17" />
-      <module name="customer.usecase" target="17" />
-      <module name="customer.usecase.main" target="17" />
-      <module name="customer.usecase.test" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.main" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.test" target="17" />
