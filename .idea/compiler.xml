@@ -22,6 +22,18 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="customer" target="17" />
+      <module name="customer.app-service" target="17" />
+      <module name="customer.app-service.main" target="17" />
+      <module name="customer.app-service.test" target="17" />
+      <module name="customer.main" target="17" />
+      <module name="customer.model" target="17" />
+      <module name="customer.model.main" target="17" />
+      <module name="customer.model.test" target="17" />
+      <module name="customer.test" target="17" />
+      <module name="customer.usecase" target="17" />
+      <module name="customer.usecase.main" target="17" />
+      <module name="customer.usecase.test" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.main" target="17" />
       <module name="driven-adapters.productos.R2DBCdriverAdapter.test" target="17" />
