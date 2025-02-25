@@ -6,10 +6,10 @@ import reactor.core.publisher.Mono;
 
 public interface CustomerRepository {
 
-    Mono<Customer> getCustomerById(Integer id);
+    Mono<Customer> getCustomerById(String id);
     Mono<Customer> saveCustomer(Customer customer);
     Flux<Customer> getAllCustomers();
-    Boolean existCustomerById(Integer id);
+    Mono<Boolean> existCustomerById(String id);
     Mono<Customer> updateCustomer(Customer customer);
-    Mono<Void> deleteCustomer(Integer id);
+    Mono<Void> deleteCustomer(String id);
 }

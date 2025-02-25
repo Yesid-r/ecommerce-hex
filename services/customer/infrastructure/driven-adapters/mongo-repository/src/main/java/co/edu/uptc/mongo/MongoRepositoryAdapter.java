@@ -2,6 +2,7 @@ package co.edu.uptc.mongo;
 
 import co.edu.uptc.model.customer.Customer;
 import co.edu.uptc.model.customer.gateways.CustomerRepository;
+import co.edu.uptc.mongo.entity.AddressEntity;
 import co.edu.uptc.mongo.entity.CustomerEntity;
 import co.edu.uptc.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
@@ -24,8 +25,8 @@ implements CustomerRepository
     }
 
     @Override
-    public Mono<Customer> getCustomerById(Integer id) {
-        return null;
+    public Mono<Customer> getCustomerById(String id) {
+        return this.repository.findById(id).map(this::toEntity);
     }
 
     @Override
@@ -35,21 +36,39 @@ implements CustomerRepository
 
     @Override
     public Flux<Customer> getAllCustomers() {
-        return null;
+        return this.findAll();
     }
 
     @Override
-    public Boolean existCustomerById(Integer id) {
-        return null;
+    public Mono<Boolean> existCustomerById(String id) {
+        return this.repository.existsById(id);
     }
 
     @Override
     public Mono<Customer> updateCustomer(Customer customer) {
-        return null;
+
+        return this.repository.findById(customer.getId())
+                .map(customerEntity -> {
+                    customerEntity.setName(customer.getName());
+                    customerEntity.setLastName(customer.getLastName());
+                    customerEntity.setAddress(
+                            AddressEntity.builder()
+                                    .street(customer.getAddress().getStreet())
+                                    .city(customer.getAddress().getCity())
+                                    .state(customer.getAddress().getState())
+                                    .zipCode(customer.getAddress().getZipCode())
+                                    .build()
+                    );
+                    return customerEntity;
+                })
+                .flatMap(this.repository::save)
+                .map(this::toEntity);
     }
 
     @Override
-    public Mono<Void> deleteCustomer(Integer id) {
-        return null;
+    public Mono<Void> deleteCustomer(String id) {
+
+        return this.repository.deleteById(id);
+
     }
 }
