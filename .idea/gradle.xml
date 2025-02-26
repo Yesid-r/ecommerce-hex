@@ -18,6 +18,18 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/services/order" />
+        <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/services/order" />
+            <option value="$PROJECT_DIR$/services/order/applications/app-service" />
+            <option value="$PROJECT_DIR$/services/order/domain/model" />
+            <option value="$PROJECT_DIR$/services/order/domain/usecase" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/services/producto" />
         <option name="gradleJvm" value="corretto-17" />
         <option name="modules">
