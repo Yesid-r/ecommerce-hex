@@ -21,6 +21,7 @@ public class Producto {
     private String descripcion;
     private String color;
     private Categoria categoria;
+    private String size;
     private BigDecimal precio;
     private List<String> imagenes;
     private int stock;

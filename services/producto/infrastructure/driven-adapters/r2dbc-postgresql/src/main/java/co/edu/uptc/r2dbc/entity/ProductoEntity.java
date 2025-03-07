@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
@@ -19,11 +20,15 @@ import java.math.BigDecimal;
 public class ProductoEntity {
 
     @Id Integer id;
+    @Column("sku") String sku;
     @Column("nombre") String nombre;
     @Column("descripcion") String descripcion;
     @Column("color") String color;
+    @Column("size") String size;
     @Column("precio")    BigDecimal precio;
     @Column("id_categoria") Integer idCategoria;
+    @Column("stock") Integer stock;
+    @Column("imagenes") List<String> images;
     @Column("is_active") Boolean isActive;
 
 

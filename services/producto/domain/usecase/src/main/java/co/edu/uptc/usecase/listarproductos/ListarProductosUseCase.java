@@ -15,12 +15,13 @@ public class ListarProductosUseCase {
 
     public Flux<Producto> action(){
 
-        return productoRepository.buscarProductos()
-                .flatMap(producto -> productVariantRepository.listarVariantesPorProducto(producto.getId())
-                        .collectList()
-                        .map(variantes -> {
-                            producto.setVariants(new HashSet<>(variantes));
-                            return producto;
-                        }));
+//        return productoRepository.buscarProductos()
+//                .flatMap(producto -> productVariantRepository.listarVariantesPorProducto(producto.getId())
+//                        .collectList()
+//                        .map(variantes -> {
+//                            producto.setVariants(new HashSet<>(variantes));
+//                            return producto;
+//                        }));
+        return productoRepository.buscarProductos();
     }
 }

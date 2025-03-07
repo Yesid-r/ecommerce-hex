@@ -17,13 +17,14 @@ public class ObtenerProductoUseCase {
     private final ProductVariantRepository productVariantRepository;
 
     public Mono<Producto> action(Integer id){
-        return productoRepository.buscarPorId(id)
-                .flatMap(producto -> productVariantRepository.listarVariantesPorProducto(producto.getId())
-                        .collectList()
-                        .map(variantes -> {
-                            producto.setVariants(new HashSet<>(variantes));
-                            return producto;
-                        }));
+//        return productoRepository.buscarPorId(id)
+//                .flatMap(producto -> productVariantRepository.listarVariantesPorProducto(producto.getId())
+//                        .collectList()
+//                        .map(variantes -> {
+//                            producto.setVariants(new HashSet<>(variantes));
+//                            return producto;
+//                        }));
+        return productoRepository.buscarPorId(id);
     }
 
 }

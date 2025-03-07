@@ -15,7 +15,7 @@ adapters:
    r2dbc:
      host: localhost
      port: 5432
-     database: productos_db
+     database: productos_db_dev
      schema: public
      username: root
      password: root

@@ -17,6 +17,10 @@ public class ModificarProductoUseCase {
                     producto1.setColor(producto.getColor());
                     producto1.setPrecio(producto.getPrecio());
                     producto1.setActive(producto.isActive());
+                    producto1.setImagenes(producto.getImagenes());
+                    producto1.setStock(producto.getStock());
+                    producto1.setSku(producto.getSku());
+
                     return productoRepository.actualizarProducto(producto1);
                 });
     }
