@@ -12,7 +12,9 @@
         <module name="order.app-service.main" />
         <module name="order.model.test" />
         <module name="order.app-service.test" />
+        <module name="order.rest-consumer.test" />
         <module name="order.usecase.test" />
+        <module name="order.rest-consumer.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

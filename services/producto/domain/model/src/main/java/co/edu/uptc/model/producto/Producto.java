@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -15,20 +16,14 @@ import java.util.Set;
 public class Producto {
 
     private Integer id;
+    private String sku;
     private String nombre;
     private String descripcion;
     private String color;
     private Categoria categoria;
     private BigDecimal precio;
+    private List<String> imagenes;
+    private int stock;
     private boolean isActive;
-    private Set<ProductVariant> variants;
 
-    public void addVariant(Integer id, String sku, String size, int quantity, BigDecimal priceOffset) {
-        variants.add(new ProductVariant(id,this.id,sku, size, quantity, priceOffset));
-
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
 }
