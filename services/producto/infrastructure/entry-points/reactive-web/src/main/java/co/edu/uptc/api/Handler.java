@@ -3,6 +3,7 @@ package co.edu.uptc.api;
 import co.edu.uptc.api.DTO.*;
 import co.edu.uptc.model.categoria.Categoria;
 import co.edu.uptc.model.producto.Producto;
+import co.edu.uptc.model.producto.ProductoRequest;
 import co.edu.uptc.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.edu.uptc.usecase.guardarcategoria.GuardarCategoriaUseCase;
 import co.edu.uptc.usecase.guardarproducto.GuardarProductoUseCase;
@@ -11,11 +12,16 @@ import co.edu.uptc.usecase.listarcategorias.ListarCategoriasUseCase;
 import co.edu.uptc.usecase.listarproductos.ListarProductosUseCase;
 import co.edu.uptc.usecase.modificarproducto.ModificarProductoUseCase;
 import co.edu.uptc.usecase.obtenerproducto.ObtenerProductoUseCase;
+import co.edu.uptc.usecase.solicitudfacturar.SolicitudFacturarUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +38,7 @@ public class Handler {
     private final ModificarProductoUseCase modificarProductoUseCase;
     private final ListarCategoriasUseCase listarCategoriasUseCase;
     private final EliminarProductoUseCase eliminarProductoUseCase;
+    private final SolicitudFacturarUseCase solicitudFacturarUseCase;
 
     public Mono<ServerResponse> listenGETListarProductos(ServerRequest serverRequest) {
         return ServerResponse.ok().body(listarProductosUseCase.action(), Producto.class);
@@ -88,4 +95,22 @@ public class Handler {
                 .flatMap(categoria1 -> ServerResponse.ok().bodyValue(categoriaMapper.toCategoriaDTO(categoria1)))
                 .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage())));
     }
+    public Mono<ServerResponse> listenPOSTSolicitudFacturar(ServerRequest serverRequest) {
+        // Convertir el cuerpo de la petición a un Flux de ProductoRequest y luego a una lista
+        Mono<List<ProductoRequest>> productosListMono = serverRequest.bodyToFlux(ProductoRequest.class)
+                .collectList();
+
+        return productosListMono.flatMap(productosList ->
+                        // Ejecutar el método facturar (bloqueante) en un scheduler para evitar bloquear el hilo principal
+                        Mono.fromCallable(() -> solicitudFacturarUseCase.facturar(productosList))
+                                .subscribeOn(Schedulers.boundedElastic())
+                                .flatMap(productPurchaseResponseList ->
+                                        ServerResponse.ok().bodyValue(productPurchaseResponseList)
+                                )
+                )
+                .onErrorResume(e ->
+                        ServerResponse.badRequest().bodyValue("Error processing request: " + e.getMessage())
+                );
+    }
+
 }

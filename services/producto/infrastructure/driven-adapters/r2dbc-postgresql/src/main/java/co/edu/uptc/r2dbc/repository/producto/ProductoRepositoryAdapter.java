@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Repository
 public class ProductoRepositoryAdapter extends ReactiveAdapterOperations<
         Producto,
@@ -88,6 +90,14 @@ implements ProductoRepository
         return repository.findById(idProducto)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("El producto con ID " + idProducto + " no existe.")))
                 .flatMap(producto -> repository.deleteById(idProducto));
+    }
+
+    @Override
+    public Flux<Producto> obtenerProductosPorIds(List<Integer> productIds) {
+        return repository.findAllById(productIds)
+                .flatMap(entity -> buscarCategoriaPorId(entity.getIdCategoria())
+                        .flatMap(categoria -> productoRepMapper.toModel(Mono.just(entity), categoria))
+                );
     }
 
 
