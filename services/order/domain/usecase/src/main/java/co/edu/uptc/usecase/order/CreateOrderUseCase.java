@@ -19,27 +19,37 @@ public class CreateOrderUseCase {
 
     private final OrderRepository orderRepository;
     private final CustomerGateway customerGateway;
-    private final ProductGateway productGateway;
+    //private final ProductGateway productGateway;
 
-    public Mono<Order> createOrder(String customerId, List<String> productIds) {
-        return customerGateway.customerExists(customerId)
-                .flatMap(exists -> {
-                    if (!exists) {
-                        return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
-                    }
+    public Mono<Order> createOrder(String customerId, List<Integer> productIds) {
+        var customer = customerGateway.obtenerCliente(customerId);
+        if (customer == null) {
+            return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
+        }
+        //var purchaseProduct = productGateway.getProductsForOrder(productIds);
 
-                    return productGateway.getProductsForOrder(productIds)
-                            .flatMap(orderLines -> {
-                                Order order = buildOrder(customerId, orderLines);
-                                return orderRepository.saveOrder(order)
-                                        .flatMap(savedOrder -> {
-                                            // Update the order reference in order lines and save them
-                                            List<OrderLine> updatedOrderLines = updateOrderLinesWithOrder(orderLines, savedOrder);
-                                            // TODO: Save the order lines using a repository
-                                            return Mono.just(savedOrder);
-                                        });
-                            });
-                });
+        //TODO implementar payment y notification
+//        return customerGateway.customerExists(customerId)
+//                .flatMap(exists -> {
+//                    if (!exists) {
+//                        return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
+//                    }
+//
+//                    return productGateway.getProductsForOrder(productIds)
+//                            .flatMap(orderLines -> {
+//                                Order order = buildOrder(customerId, orderLines);
+//                                return orderRepository.saveOrder(order)
+//                                        .flatMap(savedOrder -> {
+//                                            // Update the order reference in order lines and save them
+//                                            List<OrderLine> updatedOrderLines = updateOrderLinesWithOrder(orderLines, savedOrder);
+//                                            // TODO: Save the order lines using a repository
+//                                            return Mono.just(savedOrder);
+//                                        });
+//                            });
+//                });
+        return orderRepository.saveOrder(Order.builder().customerId(customerId).totalAmount(BigDecimal.TEN).build());
+
+
     }
 
     private Order buildOrder(String customerId, List<OrderLine> orderLines) {

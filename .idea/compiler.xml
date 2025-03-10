@@ -8,9 +8,13 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
         </processorPath>
         <module name="order.model.main" />
+        <module name="order.reactive-web.main" />
         <module name="order.usecase.main" />
         <module name="order.app-service.main" />
         <module name="order.model.test" />
+        <module name="order.mongo-repository.main" />
+        <module name="order.mongo-repository.test" />
+        <module name="order.reactive-web.test" />
         <module name="order.app-service.test" />
         <module name="order.rest-consumer.test" />
         <module name="order.usecase.test" />

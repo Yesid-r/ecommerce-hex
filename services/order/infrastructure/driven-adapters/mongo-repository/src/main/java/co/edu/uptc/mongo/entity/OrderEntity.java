@@ -1,25 +1,27 @@
-package co.edu.uptc.model.order;
-import co.edu.uptc.model.orderline.OrderLine;
+package co.edu.uptc.mongo.entity;
+
 import lombok.*;
-//import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
-@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+@Data
+@Builder
+@Getter
+@Setter
+@Document(collection = "order")
+public class OrderEntity {
 
+    @Id
     private String id;
     private String reference;
     private BigDecimal totalAmount;
     private String customerId;
     private String status;
-    private List<OrderLine> orderLines;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 }
