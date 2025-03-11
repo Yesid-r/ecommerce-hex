@@ -30,7 +30,7 @@ public class SolicitudFacturarUseCase {
             }
             // actualizar el stock
             product.setStock(product.getStock() - productRequest.cantidad());
-            productoRepository.actualizarProducto(product).block();
+            productoRepository.actualizarProducto(product);
             // agregar el producto a la lista de productos a comprar
             purchaseProducts.add(new ProductPurchaseResponse(product.getId(), product.getNombre(), product.getDescripcion(), productRequest.cantidad(), product.getPrecio().doubleValue()));
         }

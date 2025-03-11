@@ -1,6 +1,7 @@
 package co.edu.uptc.usecase.order;
 
 import co.edu.uptc.model.order.Order;
+import co.edu.uptc.model.order.dto.ProductRequestDTO;
 import co.edu.uptc.model.order.gateways.CustomerGateway;
 import co.edu.uptc.model.order.gateways.OrderRepository;
 import co.edu.uptc.model.order.gateways.ProductGateway;
@@ -19,14 +20,15 @@ public class CreateOrderUseCase {
 
     private final OrderRepository orderRepository;
     private final CustomerGateway customerGateway;
-    //private final ProductGateway productGateway;
+    private final ProductGateway productGateway;
 
-    public Mono<Order> createOrder(String customerId, List<Integer> productIds) {
+    public Mono<Order> createOrder(String customerId, List<ProductRequestDTO> products) {
         var customer = customerGateway.obtenerCliente(customerId);
         if (customer == null) {
             return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
         }
-        //var purchaseProduct = productGateway.getProductsForOrder(productIds);
+        var purchaseProduct = productGateway.getProductsForOrder(products);
+
 
         //TODO implementar payment y notification
 //        return customerGateway.customerExists(customerId)
