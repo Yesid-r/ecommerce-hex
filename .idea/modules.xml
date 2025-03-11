@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/applications/app-service/customer.app-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/applications/app-service/customer.app-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/model/customer.model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/model/customer.model.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/customer.mongo-repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/customer.mongo-repository.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/customer.reactive-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/customer.reactive-web.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/usecase/customer.usecase.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/usecase/customer.usecase.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ecommerce.iml" filepath="$PROJECT_DIR$/.idea/ecommerce.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/applications/app-service/order.app-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/applications/app-service/order.app-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/model/order.model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/model/order.model.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/order.mongo-repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/order.mongo-repository.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/order.reactive-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/order.reactive-web.main.iml" />
