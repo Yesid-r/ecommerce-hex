@@ -2,7 +2,7 @@ server:
   port: 8888
 spring:
   application:
-    name: "order"
+    name: order-service
   devtools:
     add-properties: false
   h2:
@@ -53,3 +53,6 @@ resilience4j:
         waitDurationInOpenState: "10s"
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+eureka:
+  instance:
+    preferIpAddress: true

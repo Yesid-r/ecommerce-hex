@@ -2,7 +2,7 @@ server:
   port: 8088
 spring:
   application:
-    name: "customer"
+    name: customer-service
   devtools:
     add-properties: false
   h2:
@@ -23,5 +23,8 @@ management:
     health:
       probes:
         enabled: true
+eureka:
+  instance:
+    preferIpAddress: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080 /http://localhost:8888"
