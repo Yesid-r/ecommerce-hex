@@ -3,10 +3,11 @@ package co.edu.uptc.consumer;
 import co.edu.uptc.model.order.dto.ProductPurchaseResponseDTO;
 import co.edu.uptc.model.order.dto.ProductRequestDTO;
 import co.edu.uptc.model.order.gateways.ProductGateway;
-import co.edu.uptc.model.orderline.OrderLine;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -20,13 +21,19 @@ public class RestConsumerProduct implements ProductGateway {
 
     @Override
     public Mono<List<ProductPurchaseResponseDTO>> getProductsForOrder(List<ProductRequestDTO> productsRequest) {
-        //TODO implementar metodo post para la siguiente ruta: http://localhost:8080/api/v1/producto/purchase
+
 
         return client.post()
                 .uri("/api/v1/producto/purchase")
                 .bodyValue(productsRequest)
-                .retrieve()
-                .bodyToFlux(ProductPurchaseResponseDTO.class)
-                .collectList();
+                .exchangeToMono(response -> {
+                    if (response.statusCode().is2xxSuccessful()) {
+                        return response.bodyToFlux(ProductPurchaseResponseDTO.class).collectList();
+                    } else {
+                        return response.createException().flatMap(Mono::error);
+                    }
+                });
+
+
     }
 }

@@ -21,11 +21,10 @@ public class Handler {
     public Mono<ServerResponse> listenPostSaveOrder(ServerRequest serverRequest) {
 
         Mono<OrderRequest> orderRequest = serverRequest.bodyToMono(OrderRequest.class).flatMap(Mono::just);
-        //extraer el id cliente y List<Integer> del body
-        return orderRequest.flatMap(order -> {
-            createOrderUseCase.createOrder(order.customerId(), order.products());
-            return ServerResponse.ok().bodyValue("Order created");
-        });
+
+        return orderRequest.flatMap(order -> createOrderUseCase.createOrder(order.customerId(), order.products()))
+                        .flatMap(order -> ServerResponse.ok().bodyValue(order))
+                        .onErrorResume(error -> ServerResponse.badRequest().bodyValue(error.getMessage()));
 
 
     }

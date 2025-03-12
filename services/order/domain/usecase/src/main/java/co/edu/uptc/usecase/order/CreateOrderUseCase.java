@@ -23,36 +23,26 @@ public class CreateOrderUseCase {
     private final ProductGateway productGateway;
 
     public Mono<Order> createOrder(String customerId, List<ProductRequestDTO> products) {
-        var customer = customerGateway.obtenerCliente(customerId);
-        if (customer == null) {
-            return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
-        }
-        var purchaseProduct = productGateway.getProductsForOrder(products);
-
-
-        //TODO implementar payment y notification
-//        return customerGateway.customerExists(customerId)
-//                .flatMap(exists -> {
-//                    if (!exists) {
-//                        return Mono.error(new IllegalArgumentException("Customer not found: " + customerId));
-//                    }
-//
-//                    return productGateway.getProductsForOrder(productIds)
-//                            .flatMap(orderLines -> {
-//                                Order order = buildOrder(customerId, orderLines);
-//                                return orderRepository.saveOrder(order)
-//                                        .flatMap(savedOrder -> {
-//                                            // Update the order reference in order lines and save them
-//                                            List<OrderLine> updatedOrderLines = updateOrderLinesWithOrder(orderLines, savedOrder);
-//                                            // TODO: Save the order lines using a repository
-//                                            return Mono.just(savedOrder);
-//                                        });
-//                            });
-//                });
-        return orderRepository.saveOrder(Order.builder().customerId(customerId).totalAmount(BigDecimal.TEN).build());
-
-
+        return customerGateway.obtenerCliente(customerId)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("Customer not found: " + customerId))) // Si el cliente no existe, retorna error.
+                .flatMap(customer ->
+                        productGateway.getProductsForOrder(products)
+                                .flatMap(purchaseProduct -> {
+                                    if (purchaseProduct == null || purchaseProduct.isEmpty()) {
+                                        System.out.println("purchaseProduct = " + purchaseProduct);
+                                        return Mono.error(new IllegalArgumentException("Product not found"));
+                                    }
+                                    return Mono.just(purchaseProduct);
+                                })
+                                .map(purchaseProduct -> {
+                                    // TODO: Implementar la lógica de pago y creación de la orden.
+                                    Order order = new Order();
+                                    order.setCustomerId(customerId);
+                                    return order;
+                                })
+                );
     }
+
 
     private Order buildOrder(String customerId, List<OrderLine> orderLines) {
         BigDecimal totalAmount = calculateTotalAmount(orderLines);

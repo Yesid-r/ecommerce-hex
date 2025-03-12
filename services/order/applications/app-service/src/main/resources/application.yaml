@@ -17,7 +17,7 @@ spring:
 adapter:
   restconsumer:
     timeout: 5000
-    url: "http://localhost:8088"
+    url: "http://localhost:8111"
 management:
   health:
     circuitbreakers:

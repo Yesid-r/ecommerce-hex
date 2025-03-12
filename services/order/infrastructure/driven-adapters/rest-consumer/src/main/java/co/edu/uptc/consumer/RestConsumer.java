@@ -16,10 +16,20 @@ public class RestConsumer implements CustomerGateway {
 
     @Override
     public Mono<CustomerResponse> obtenerCliente(String customerId) {
+        System.out.println("customerId = " + customerId);
         return client
                 .get()
                 .uri("/api/v1/customer/" + customerId)
-                .retrieve()
-                .bodyToMono(CustomerResponse.class);
+                .exchangeToMono(response -> {
+                    if (response.statusCode().is2xxSuccessful()) {
+                        System.out.println("Customer found");
+                        System.out.println("response = " + response.toString());
+                        return response.bodyToMono(CustomerResponse.class);
+                    } else {
+                        System.out.println("ERROR ->>> Not customer Found");
+                        return response.createException().flatMap(Mono::error);
+                    }
+                });
+
     }
 }

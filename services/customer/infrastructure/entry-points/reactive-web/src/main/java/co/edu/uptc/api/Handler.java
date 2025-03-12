@@ -29,6 +29,7 @@ public class Handler {
     }
     public Mono<ServerResponse> listenGETCustomerUseCase(ServerRequest serverRequest) {
         String id = serverRequest.pathVariable("id");
+        System.out.println("Customer to found id = " + id);
         return getCustomerUseCase.getCustomer(id)
                 .flatMap(element -> ServerResponse.ok().bodyValue(element))
                 .switchIfEmpty(ServerResponse.notFound().build());
