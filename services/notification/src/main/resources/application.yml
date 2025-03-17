@@ -1,0 +1,7 @@
+spring:
+  config:
+    import: configserver:http://localhost:8888
+  application:
+    name: notification-service
+email:
+  from: dairo3rincon@gmail.com
