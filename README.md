@@ -1,6 +1,8 @@
 # Reactive E-commerce Product Management Service
 
 ## Architecture Overview
+![Architecture](/docs/diagramaproyecto.png)
+
 
 This project is a microservices-based e-commerce application built using reactive programming principles, Spring WebFlux, Docker, and Clean Architecture. The system consists of the following components:
 
