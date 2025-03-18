@@ -1,0 +1,39 @@
+digraph INFRA {
+  node [ color = "black", fillcolor = "#E6E6E6", height =1, style = "filled,bold,rounded", fontname = "Arial" ];
+  "postgresql" [ label = "postgresql
+(AWS::RDS::DBInstance)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "mongodb" [ label = "mongodb
+(AWS::DocDB::DBCluster)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "zookeeper" [ label = "zookeeper
+(AWS::MSK::Cluster)", shape =rectangle, fillcolor = "#CCE0AC" ];
+  "kafka" [ label = "kafka
+(AWS::MSK::Cluster)", shape =rectangle, fillcolor = "#CCE0AC" ];
+  "mail-dev" [ label = "mail-dev
+(AWS::SES::ConfigurationSet)", shape =rectangle ];
+  "zipkin" [ label = "zipkin
+(AWS::XRay::Group)", shape =rectangle ];
+  "discovery-service" [ label = "discovery-service
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "config-server" [ label = "config-server
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "gateway" [ label = "gateway
+(AWS::ApiGateway::RestApi)", shape =rectangle, fillcolor = "#E78F81" ];
+  "product-service" [ label = "product-service
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "order-service" [ label = "order-service
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "customer-service" [ label = "customer-service
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "notification-service" [ label = "notification-service
+(AWS::ECS::Service)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "kafka" -> "zookeeper";
+  "gateway" -> "product-service";
+  "gateway" -> "order-service";
+  "gateway" -> "customer-service";
+  "product-service" -> "postgresql";
+  "order-service" -> "mongodb";
+  "order-service" -> "kafka";
+  "customer-service" -> "mongodb";
+  "notification-service" -> "mongodb";
+  "notification-service" -> "kafka";
+}
