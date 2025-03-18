@@ -63,16 +63,16 @@
     <table>
         <thead>
         <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.quantity}"></td>
-            <td th:text="${product.price}"></td>
+            <td th:text="${product.nombre}"></td>
+            <td th:text="${product.cantidad}"></td>
+            <td th:text="${product.precio}"></td>
         </tr>
         </tbody>
     </table>

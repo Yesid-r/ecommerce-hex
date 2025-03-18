@@ -1,8 +1,8 @@
 package co.edu.uptc.notification;
 
 
-import co.edu.uptc.kafka.order.OrderConfirmation;
 import co.edu.uptc.kafka.payment.PaymentConfirmation;
+import co.edu.uptc.model.order.OrderConfirmation;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

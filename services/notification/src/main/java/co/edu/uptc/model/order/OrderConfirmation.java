@@ -1,6 +1,6 @@
-package co.edu.uptc.kafka.order;
-import co.edu.uptc.kafka.payment.PaymentMethod;
+package co.edu.uptc.model.order;
 
+import co.edu.uptc.kafka.payment.PaymentMethod;
 
 import java.math.BigDecimal;
 import java.util.List;

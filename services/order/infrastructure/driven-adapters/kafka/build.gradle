@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':model')
+    implementation 'org.springframework:spring-context'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.3.1'
+}

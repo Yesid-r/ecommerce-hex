@@ -4,6 +4,15 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/services/config" />
+        <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/services/config" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/services/customer" />
         <option name="gradleJvm" value="corretto-17" />
         <option name="modules">
@@ -53,8 +62,10 @@
             <option value="$PROJECT_DIR$/services/order/applications/app-service" />
             <option value="$PROJECT_DIR$/services/order/domain/model" />
             <option value="$PROJECT_DIR$/services/order/domain/usecase" />
+            <option value="$PROJECT_DIR$/services/order/infrastructure/driven-adapters/kafka" />
             <option value="$PROJECT_DIR$/services/order/infrastructure/driven-adapters/mongo-repository" />
             <option value="$PROJECT_DIR$/services/order/infrastructure/driven-adapters/rest-consumer" />
+            <option value="$PROJECT_DIR$/services/order/infrastructure/entry-points/kafka-consumer" />
             <option value="$PROJECT_DIR$/services/order/infrastructure/entry-points/reactive-web" />
           </set>
         </option>

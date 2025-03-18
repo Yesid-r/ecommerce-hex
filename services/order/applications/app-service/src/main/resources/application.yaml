@@ -1,8 +1,8 @@
 server:
-  port: 8888
+  port: 8889
 spring:
   application:
-    name: order-service
+    name: "order-service"
   devtools:
     add-properties: false
   h2:
@@ -14,6 +14,13 @@ spring:
   data:
     mongodb:
       uri: "mongodb://root:root@localhost:27017/test?authSource=admin"
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:co.edu.uptc.model.order.OrderConfirmation
 adapter:
   restconsumer:
     timeout: 5000
@@ -56,3 +63,7 @@ cors:
 eureka:
   instance:
     preferIpAddress: true
+adapters:
+  kafka:
+    consumer:
+      topic: "test"

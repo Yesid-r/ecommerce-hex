@@ -1,4 +1,4 @@
-package co.edu.uptc.kafka.order;
+package co.edu.uptc.model.order;
 
 public record Customer(
         String id,

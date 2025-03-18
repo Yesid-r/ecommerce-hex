@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/usecase/customer.usecase.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/usecase/customer.usecase.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ecommerce.iml" filepath="$PROJECT_DIR$/.idea/ecommerce.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/notification.main.iml" filepath="$PROJECT_DIR$/.idea/modules/notification.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/applications/app-service/order.app-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/applications/app-service/order.app-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/model/order.model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/model/order.model.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/order.mongo-repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/mongo-repository/order.mongo-repository.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/order.reactive-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/order.reactive-web.main.iml" />

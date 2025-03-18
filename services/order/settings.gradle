@@ -20,3 +20,7 @@ include ':mongo-repository'
 project(':mongo-repository').projectDir = file('./infrastructure/driven-adapters/mongo-repository')
 include ':reactive-web'
 project(':reactive-web').projectDir = file('./infrastructure/entry-points/reactive-web')
+include ':kafka-consumer'
+project(':kafka-consumer').projectDir = file('./infrastructure/entry-points/kafka-consumer')
+include ':kafka'
+project(':kafka').projectDir = file('./infrastructure/driven-adapters/kafka')

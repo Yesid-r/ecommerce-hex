@@ -1,8 +1,13 @@
 package co.edu.uptc.usecase.order;
 
 import co.edu.uptc.model.order.Order;
+import co.edu.uptc.model.order.OrderConfirmation;
+import co.edu.uptc.model.order.dto.CustomerDTO;
+import co.edu.uptc.model.order.dto.PaymentMethod;
+import co.edu.uptc.model.order.dto.ProductPurchaseResponseDTO;
 import co.edu.uptc.model.order.dto.ProductRequestDTO;
 import co.edu.uptc.model.order.gateways.CustomerGateway;
+import co.edu.uptc.model.order.gateways.OrderProducerGateway;
 import co.edu.uptc.model.order.gateways.OrderRepository;
 import co.edu.uptc.model.order.gateways.ProductGateway;
 import co.edu.uptc.model.orderline.OrderLine;
@@ -21,62 +26,67 @@ public class CreateOrderUseCase {
     private final OrderRepository orderRepository;
     private final CustomerGateway customerGateway;
     private final ProductGateway productGateway;
+    private final OrderProducerGateway orderProducerGateway;
+
 
     public Mono<Order> createOrder(String customerId, List<ProductRequestDTO> products) {
         return customerGateway.obtenerCliente(customerId)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Customer not found: " + customerId))) // Si el cliente no existe, retorna error.
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("Customer not found: " + customerId)))
                 .flatMap(customer ->
                         productGateway.getProductsForOrder(products)
                                 .flatMap(purchaseProduct -> {
                                     if (purchaseProduct == null || purchaseProduct.isEmpty()) {
-                                        System.out.println("purchaseProduct = " + purchaseProduct);
                                         return Mono.error(new IllegalArgumentException("Product not found"));
                                     }
                                     return Mono.just(purchaseProduct);
                                 })
                                 .map(purchaseProduct -> {
-                                    // TODO: Implementar la lógica de pago y creación de la orden.
-                                    Order order = new Order();
-                                    order.setCustomerId(customerId);
+                                    Order order = buildOrder(customerId, createOrderLines(purchaseProduct));
+                                    //return orderRepository.save(order)
+                                      //      .doOnSuccess(savedOrder ->
+                                        //            sendOrderCreatedEvent(savedOrder));
+                                    //TODO mappear order completa
+                                    CustomerDTO customerDTO = new CustomerDTO(customer.id(), customer.name(), customer.lastName(), customer.email());
+                                    OrderConfirmation orderConfirmation = new OrderConfirmation(order.getId(), order.getTotalAmount(), PaymentMethod.CREDIT_CARD, customerDTO, purchaseProduct);
+                                    System.out.println("orderConfirmation.toString() = " + orderConfirmation.toString());
+                                    orderProducerGateway.sendOrder(orderConfirmation);
+
+                                    orderRepository.saveOrder(order);
                                     return order;
+
                                 })
                 );
     }
 
 
+
+    public List<OrderLine> createOrderLines(List<ProductPurchaseResponseDTO> products){
+        List<OrderLine> orderLines = products.stream()
+                .map(product -> OrderLine.builder()
+                        .productId(product.id())
+                        .nameProduct(product.nombre())
+                        .quantity(product.cantidad())
+                        .price(BigDecimal.valueOf(product.precio()))
+                        .build())
+                .collect(Collectors.toList());
+        return orderLines;
+
+
+    }
     private Order buildOrder(String customerId, List<OrderLine> orderLines) {
-        BigDecimal totalAmount = calculateTotalAmount(orderLines);
-        LocalDateTime now = LocalDateTime.now();
-        
-        return Order.builder()
-                .id(UUID.randomUUID().toString())
-                .reference(generateOrderReference())
-                .totalAmount(totalAmount)
-                .customerId(customerId)
-                .createdAt(now)
-                .updatedAt(now)
-                .build();
+        Order order = new Order();
+        order.setId(String.valueOf(UUID.randomUUID()));
+        order.setCustomerId(customerId);
+        order.setOrderLines(orderLines);
+        order.setTotalAmount(calculateTotalAmount(orderLines));
+        order.setCreatedAt(LocalDateTime.now());
+        order.setStatus("CREATED");
+        return order;
     }
 
     private BigDecimal calculateTotalAmount(List<OrderLine> orderLines) {
-        // Calculate the total amount based on the order lines
-        // This is a placeholder implementation
-        return BigDecimal.ZERO;
-    }
-
-    private String generateOrderReference() {
-        // Generate a unique order reference
-        return "ORD-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-    }
-
-    private List<OrderLine> updateOrderLinesWithOrder(List<OrderLine> orderLines, Order order) {
         return orderLines.stream()
-                .map(ol -> OrderLine.builder()
-                        .id(ol.getId())
-                        .order(order)
-                        .productId(ol.getProductId())
-                        .skuProduct(ol.getSkuProduct())
-                        .build())
-                .collect(Collectors.toList());
+                .map(line -> line.getPrice().multiply(new BigDecimal(line.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

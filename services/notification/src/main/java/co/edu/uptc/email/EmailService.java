@@ -1,7 +1,8 @@
 package co.edu.uptc.email;
 
 
-import co.edu.uptc.kafka.order.Product;
+
+import co.edu.uptc.model.order.Product;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,7 @@ public class EmailService {
 
     @Async
     public void sendOrderConfirmationEmail(String to, String customerName, BigDecimal amount, String orderReference, List<Product> products) throws MessagingException {
+        System.out.println("email to = " + to);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, MULTIPART_MODE_RELATED, UTF_8.name());
         mimeMessageHelper.setFrom(emailFrom);

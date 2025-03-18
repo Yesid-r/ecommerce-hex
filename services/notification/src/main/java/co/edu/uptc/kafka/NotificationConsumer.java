@@ -2,8 +2,9 @@ package co.edu.uptc.kafka;
 
 
 import co.edu.uptc.email.EmailService;
-import co.edu.uptc.kafka.order.OrderConfirmation;
+
 import co.edu.uptc.kafka.payment.PaymentConfirmation;
+import co.edu.uptc.model.order.OrderConfirmation;
 import co.edu.uptc.notification.Notification;
 import co.edu.uptc.notification.NotificationRepository;
 import co.edu.uptc.notification.NotificationType;
@@ -58,6 +59,8 @@ public class NotificationConsumer {
                         .build()
         );
         var customerName = orderConfirmation.customer().firstname() + " " + orderConfirmation.customer().lastname();
+        System.out.println("customerName = " + customerName);
+        System.out.println("send to = " + orderConfirmation.customer().email());
 
         emailService.sendOrderConfirmationEmail(
                 orderConfirmation.customer().email(),

@@ -13,6 +13,7 @@ public class OrderLine {
     private String id;
     private Order order;
     private Integer productId;
+    private String nameProduct;
     private String skuProduct;
     private int quantity;
     private BigDecimal price;
